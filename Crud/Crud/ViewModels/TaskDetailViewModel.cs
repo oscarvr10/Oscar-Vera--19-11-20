@@ -56,15 +56,14 @@ namespace Crud.ViewModels
 
         #endregion
 
-        public TaskDetailViewModel(ITaskService taskService, INavigationService navigationService, TaskModel selectedTask)
+        public TaskDetailViewModel(ITaskService taskService, INavigationService navigationService, int taskId)
         {
-            Title = selectedTask == null ? "Nueva Tarea" : "Detalle de Tarea";
-            IsEdit = selectedTask == null ? false : true;
-            SelectedTask = selectedTask;
+            Title = taskId == 0 ? "Nueva Tarea" : "Detalle de Tarea";
+            IsEdit = taskId == 0 ? false : true;
             _taskService = taskService;
             _navigationService = navigationService;
             SetCommands();
-            SetTaskDetail();
+            SetTaskDetail(taskId);
         }
 
         #region Methods
@@ -74,11 +73,12 @@ namespace Crud.ViewModels
             SaveTaskCommand = new Command(async() => await SaveTask());
         }
 
-        private void SetTaskDetail()
+        private void SetTaskDetail(int taskId)
         {
-            if (SelectedTask == null)
+            if (taskId == 0)
                 return;
 
+            SelectedTask = _taskService.GetTask(taskId);
             TaskTitle = SelectedTask.Title;
             TaskDescription = SelectedTask.Description;
             TaskCompleted = SelectedTask.IsCompleted;
@@ -88,7 +88,7 @@ namespace Crud.ViewModels
         {
             SelectedTask = new TaskModel
             {
-                TaskID = SelectedTask.TaskID,
+                TaskID = IsEdit ? SelectedTask.TaskID : 0,
                 Title = TaskTitle,
                 Description = TaskDescription,
                 IsCompleted = TaskCompleted                

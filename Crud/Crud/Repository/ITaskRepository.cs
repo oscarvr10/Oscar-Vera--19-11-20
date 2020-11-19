@@ -8,7 +8,7 @@ namespace Crud.Repository
         IEnumerable<TaskModel> GetAllAsync();
         TaskModel Get(int taskId);
         void Add(TaskModel task);
-        bool Delete(int taskId);
+        bool Delete(TaskModel task);
         bool Update(TaskModel task);
     }
 }

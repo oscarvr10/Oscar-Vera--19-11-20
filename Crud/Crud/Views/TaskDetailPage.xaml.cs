@@ -9,18 +9,18 @@ namespace Crud.Views
 {
     public partial class TaskDetailPage : ContentPage
     {
-        public TaskDetailPage(TaskModel selectedTask)
+        public TaskDetailPage(int taskId)
         {
             InitializeComponent();
-            SetBindingContext(selectedTask);
+            SetBindingContext(taskId);
         }   
 
-        private void SetBindingContext(TaskModel selectedTask)
+        private void SetBindingContext(int taskId)
         {
             var taskRepository = new TaskRepository(DependencyService.Get<IDbConnection>());
             var taskService = new TaskService(taskRepository);
             var navigationService = new NavigationService();
-            BindingContext = new TaskDetailViewModel(taskService, navigationService, selectedTask);
+            BindingContext = new TaskDetailViewModel(taskService, navigationService, taskId);
         }
     }
 }

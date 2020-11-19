@@ -16,20 +16,6 @@ namespace Crud.Repository
             _dbConnection.CreateTable<TaskModel>();
         }
 
-
-        /*public IEnumerable<TaskModel> Find<TValue>(Expression<Func<TaskModel, bool>> predicate = null, Expression<Func<TaskModel, TValue>> orderBy = null)
-        {
-            var query = _dbConnection.Table<TaskModel>();
-
-            if (predicate != null)
-                query = query.Where(predicate);
-
-            if (orderBy != null)
-                query = query.OrderBy<TValue>(orderBy);
-
-            return query.Table.();
-        }*/
-
         public IEnumerable<TaskModel> GetAllAsync()
         {
             try
@@ -86,12 +72,12 @@ namespace Crud.Repository
             }
         }
 
-        public bool Delete(int taskId)
+        public bool Delete(TaskModel task)
         {
             bool isDeleted = false;
             try
             {
-                _dbConnection.Delete(taskId);
+                _dbConnection.Delete(task);
                 isDeleted = true;
             }
             catch (Exception ex)

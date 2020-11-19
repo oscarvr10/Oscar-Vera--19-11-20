@@ -65,7 +65,7 @@ namespace Crud.ViewModels
         private async Task DeleteTask(TaskModel task)
         {
             IsBusy = true;
-            var taskIsDeleted = _taskService.DeleteTask(task.TaskID);
+            var taskIsDeleted = _taskService.DeleteTask(task);
             if (taskIsDeleted)
             {
                 await _navigationService.DisplayAlertAsync("Mis Tareas", "La tarea fue eliminada exitosamente", "Aceptar");
@@ -76,13 +76,16 @@ namespace Crud.ViewModels
 
         private void GoToTaskDetail(TaskModel obj)
         {
-            var page = new TaskDetailPage(obj);
+            if (obj == null)
+                return;
+
+            var page = new TaskDetailPage(obj.TaskID);
             _navigationService.PushAsync(page);
         }
 
         private void AddTask()
         {
-            var page = new TaskDetailPage(null);
+            var page = new TaskDetailPage(0);
             _navigationService.PushAsync(page);
         }
 
@@ -97,10 +100,8 @@ namespace Crud.ViewModels
         public async void GetAllTasks()
         {
             IsBusy = true;
-            await Task.Delay(2000);
             if(TaskList?.Count > 0)
                 TaskList.Clear();
-
             
             var tasks = _taskService.GetAllTask();
             foreach (var task in tasks)

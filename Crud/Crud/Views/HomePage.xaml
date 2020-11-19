@@ -17,11 +17,11 @@
                     <DataTemplate>
                       <ViewCell>
                          <ViewCell.ContextActions>
-                            <MenuItem Command="{Binding CompleteTaskCommand, Source={x:Reference homePage}}"
+                            <MenuItem Command="{Binding Path=BindingContext.CompleteTaskCommand, Source={x:Reference homePage}}"
                                       IsEnabled="{Binding IsCompleted}"
                                       CommandParameter="{Binding .}"
                                       Text="Completar" />
-                            <MenuItem Command="{Binding DeleteTaskCommand, Source={x:Reference homePage}}"
+                            <MenuItem Command="{Binding Path=BindingContext.DeleteTaskCommand, Source={x:Reference homePage}}"
                                       CommandParameter="{Binding .}"
                                       Text="Eliminar"
                                       IsDestructive="True" />

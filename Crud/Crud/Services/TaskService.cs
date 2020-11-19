@@ -17,9 +17,9 @@ namespace Crud.Services
             _taskRepository.Add(task);
         }
 
-        public bool DeleteTask(int taskId)
+        public bool DeleteTask(TaskModel task)
         {
-            return _taskRepository.Delete(taskId);
+            return _taskRepository.Delete(task);
         }
 
         public IEnumerable<TaskModel> GetAllTask()
