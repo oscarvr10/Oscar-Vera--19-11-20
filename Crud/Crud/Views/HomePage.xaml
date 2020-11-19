@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Crud.Views.HomePage"
+             Title="{Binding Title}"
+             x:Name="homePage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Nueva Tarea" Command="{Binding AddTaskCommand}"/>
+    </ContentPage.ToolbarItems>
+    <Grid>
+        <Grid Padding="24" IsVisible="{Binding IsEmpty, Converter={StaticResource BoolInvConverter}}">
+            <ListView ItemsSource="{Binding TaskList}"
+                      SelectedItem="{Binding SelectedTask}"
+                      HasUnevenRows="True"
+                      SeparatorVisibility="Default">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                      <ViewCell>
+                         <ViewCell.ContextActions>
+                            <MenuItem Command="{Binding CompleteTaskCommand, Source={x:Reference homePage}}"
+                                      IsEnabled="{Binding IsCompleted}"
+                                      CommandParameter="{Binding .}"
+                                      Text="Completar" />
+                            <MenuItem Command="{Binding DeleteTaskCommand, Source={x:Reference homePage}}"
+                                      CommandParameter="{Binding .}"
+                                      Text="Eliminar"
+                                      IsDestructive="True" />
+                         </ViewCell.ContextActions>
+                         <StackLayout Padding="0,10" Orientation="Vertical" Spacing="10">
+                             <Label Text="{Binding Title}" FontSize="Small" TextColor="Black"/>
+                             <Label Text="{Binding Description}"
+                                    FontSize="Micro"
+                                    TextColor="Gray"/>
+                         </StackLayout>
+                      </ViewCell>
+                    </DataTemplate>
+                  </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+        <Label Text="No hay tareas para mostrar."
+               FontSize="Body"
+               IsVisible="{Binding IsEmpty}"
+               VerticalOptions="CenterAndExpand"
+               HorizontalOptions="CenterAndExpand"/>
+        <StackLayout BackgroundColor="LightGray"
+                     IsVisible="{Binding IsBusy}">
+            <ActivityIndicator
+                           VerticalOptions="CenterAndExpand"
+                           Color="Purple"
+                           IsRunning="{Binding IsBusy}"
+                           HorizontalOptions="CenterAndExpand"/>
+        </StackLayout>
+        
+    </Grid>
+</ContentPage>

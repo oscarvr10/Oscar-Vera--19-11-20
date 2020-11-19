@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Title="{Binding Title}"
+             Padding="24"
+             x:Class="Crud.Views.TaskDetailPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Guardar" Command="{Binding SaveTaskCommand}"/>
+    </ContentPage.ToolbarItems>
+    <StackLayout Spacing="20">
+        <StackLayout Orientation="Vertical" Spacing="0">
+            <Label Text="Título de la Tarea"/>
+            <Entry Text="{Binding TaskTitle}"/>
+        </StackLayout>
+        <StackLayout Orientation="Vertical" Spacing="0">
+            <Label Text="Descripción de la Tarea"/>
+            <Entry Text="{Binding TaskDescription}"/>
+        </StackLayout>
+        <StackLayout Orientation="Vertical" Spacing="0">
+            <Label Text="Tarea Completada"/>
+            <CheckBox IsChecked="{Binding TaskCompleted}"/>
+        </StackLayout>
+    </StackLayout>
+</ContentPage>
